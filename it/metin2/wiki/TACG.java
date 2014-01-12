@@ -397,7 +397,7 @@ public class TACG extends JFrame {
 		c.gridx = 3;
 		c.gridwidth = 2;
 		c.weightx = 0;
-/*AtkEffBonus*/	results.add(new JLabel("Atk finale teorico con Bonus (vs mob)"),c);
+/*AtkEffBonus*/	results.add(new JLabel("Atk finale effettivo con Bonus (vs mob)"),c);
 		resultsEffAtkBonusVsMob.setToolTipText("Stima del danno effettivo che effettueresti a un mob con difesa ed elusione 0 (con bonus)");
 		resultsEffAtkBonusVsMob.setEditable(false);
 		c.gridx = 5;
