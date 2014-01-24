@@ -37,6 +37,8 @@ public class TACG extends JFrame {
 	private final static int DIM_X = 800;
 	private final static int DIM_Y = 650;
 
+	private int debug;
+
 	private JButton calcButton = new JButton("Calcola");
 	/* PRELIMINARY (STATIC) GAME DEFINITIONS */
 	private static String[] classes = { "Guerriero", "Sura", "Ninja", "Shamano" };
@@ -553,6 +555,7 @@ public class TACG extends JFrame {
 			}
 		} catch(IOException e) {
 			System.err.println("Error: could not open weapon database. Your jar file is probably corrupt.");
+			if(debug > 0) e.printStackTrace();
 		} catch(Exception e) {
 			reportMsg(e);
 		}
@@ -567,12 +570,17 @@ public class TACG extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		if(args.length > 0) {
+		if(args.length > 1) {
 			System.err.println("\n--- Java Attack Calculus Gear by Son Gohan ---");
-			System.err.println("\nUsage: java -jar jacg.jar [takes no argument]\n");
+			System.err.println("\nUsage: java -jar jacg.jar [-d]\n");
 			System.exit(0);
-		}
+		} 
+
 		final TACG tacg = new TACG();
+		if(args.length > 0 && args[0].equals("-d")) {
+			System.err.println("[TACG] Debug level set to 1.");
+			tacg.debug = 1;
+		}
 		tacg.setTitle(TITLE);
 		tacg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		System.out.println("Launching Java Attack Calculus Gear...");
@@ -670,7 +678,7 @@ public class TACG extends JFrame {
 		int dex = Integer.parseInt(pgDex.getText());
 		int str = Integer.parseInt(pgStr.getText());
 		
-		if(lv < 1 || dex < 1 || str < 1) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
+		if(lv < 0 || dex < 0 || str < 0) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
 
 		int stat = 0;
 		switch(selectedClass.getStat()) {
@@ -708,7 +716,7 @@ public class TACG extends JFrame {
 		int dex = Integer.parseInt(pgDex.getText());
 		int str = Integer.parseInt(pgStr.getText());
 
-		if(lv < 1 || dex < 1 || str < 1) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
+		if(lv < 0 || dex < 0 || str < 0) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
 		
 		int stat = 0;
 		switch(selectedClass.getStat()) {
@@ -944,12 +952,12 @@ public class TACG extends JFrame {
 			resultsTrafVsMob.setText(efD[0][0]+" - "+efD[0][1]);
 		} catch(NumberFormatException e) {
 			//System.err.println("Number format exception in calculate(): ");
-			//e.printStackTrace();
+			if(debug > 0) e.printStackTrace();
 			setAllText("Inserisci i parametri del PG");
 			resultsWeaAtk.setText(selectedWeapon.getAtk(up,0,0)+" - "+selectedWeapon.getAtk(up,0,1));
 		} catch(IllegalArgumentException e) {
 			setAllText("Parametro/i invalido/i: "+e.getMessage());
-			e.printStackTrace();
+			if(debug > 0) e.printStackTrace();
 		}
 	}
 
@@ -1011,7 +1019,7 @@ public class TACG extends JFrame {
 	}
 
 	static void reportMsg(Throwable e) {
-		System.err.println (		"Whoops, an exception occurred!\n"+
+		System.err.println (		"An exception occurred!\n"+
 						"\n*** PLEASE REPORT THIS BUG TO son.gohan.mt2@gmail.com" +
 						"\ncopy-pasting the stack trace below." +
 						"\n\n*** SEI PREGATO DI SEGNALARE QUESTO BUG A son.gohan.mt2@gmail.com"+
