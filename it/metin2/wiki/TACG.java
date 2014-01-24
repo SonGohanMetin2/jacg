@@ -601,18 +601,26 @@ public class TACG extends JFrame {
 				selectedClass = ClassPG.WARRIOR;
 				aura.setText("Livello Aura");
 				estasi.setText("Livello Estasi");
+				pgAura.setEnabled(true);
+				pgEstasi.setEnabled(true);
 			} else if(className.equals("Sura")) {
 				selectedClass = ClassPG.SURA;
 				aura.setText("---");
 				estasi.setText("---");
+				pgAura.setEnabled(false);
+				pgEstasi.setEnabled(false);
 			} else if(className.equals("Ninja")) {
 				selectedClass = ClassPG.NINJA;
 				aura.setText("---");
 				estasi.setText("---");
+				pgAura.setEnabled(false);
+				pgEstasi.setEnabled(false);
 			} else if(className.equals("Shamano")) {
 				selectedClass = ClassPG.MAGE;
 				aura.setText("Livello Attacco+");
 				estasi.setText("---");
+				pgAura.setEnabled(true);
+				pgEstasi.setEnabled(false);
 			}
 			selectedClass.setJob(jobs[Arrays.asList(classes).indexOf(className)][0]);
 			jobPG.addActionListener(new JobPGListener());
@@ -661,13 +669,18 @@ public class TACG extends JFrame {
 		int lv = Integer.parseInt(pgLiv.getText());
 		int dex = Integer.parseInt(pgDex.getText());
 		int str = Integer.parseInt(pgStr.getText());
+		
+		if(lv < 1 || dex < 1 || str < 1) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
+
 		int stat = 0;
 		switch(selectedClass.getStat()) {
 			case STR:
 				stat = str;
 				break;
 			case INT:
-				stat = Integer.parseInt(pgInt.getText());
+				int iq = Integer.parseInt(pgInt.getText());
+				if(iq < 1) throw new IllegalArgumentException("int: "+iq);
+				stat = iq;
 				break;
 			case DEX:
 				stat = dex;
@@ -694,13 +707,18 @@ public class TACG extends JFrame {
 		int lv = Integer.parseInt(pgLiv.getText());
 		int dex = Integer.parseInt(pgDex.getText());
 		int str = Integer.parseInt(pgStr.getText());
+
+		if(lv < 1 || dex < 1 || str < 1) throw new IllegalArgumentException("lv: "+lv+",dex: "+dex+",str: "+str);
+		
 		int stat = 0;
 		switch(selectedClass.getStat()) {
 			case STR:
 				stat = str;
 				break;
 			case INT:
-				stat = Integer.parseInt(pgInt.getText());
+				int iq = Integer.parseInt(pgInt.getText());
+				if(iq < 1) throw new IllegalArgumentException("int: "+iq);
+				stat = iq;
 				break;
 			case DEX:
 				stat = dex;
@@ -720,7 +738,7 @@ public class TACG extends JFrame {
 		if(	(pgAura != null) && (pgAura.getSelectedItem() != null) &&
 			(selectedClass == ClassPG.WARRIOR && selectedClass.getJob().equals("Corporale") ||
 			selectedClass == ClassPG.SURA && selectedClass.getJob().equals("Armi Magiche") ||
-			selectedClass == ClassPG.MAGE && selectedClass.getJob().equals("Drago"))
+			selectedClass == ClassPG.MAGE && selectedClass.getJob().equals("Guarigione"))
 		) {
 			switch(selectedClass) {
 				case WARRIOR:
@@ -762,7 +780,7 @@ public class TACG extends JFrame {
 		return new float[] {	1f	// no bonusII vs mobs: just buffs on enemy PG
 					,
 					(float)((1 + (-Integer.parseInt(enemySpecificDefense.getText()))/100f) *
-						(1 + frenzy((String)enemyFrenzyLv.getSelectedItem())/100f) *
+						(1 + frenzy((String)enemyFrenzyLv.getSelectedItem())/200f) *
 						(1 + (-fear((String)enemyFearLv.getSelectedItem()))/100f) *
 						(1 + (-blessing((String)enemyBlessingLv.getSelectedItem(),Integer.parseInt(enemyInt.getText()))/100f)))
 				};
@@ -799,6 +817,8 @@ public class TACG extends JFrame {
 
 		if(libriMaledizione.isSelected()) va += 5;
 		if(tavoleTugyi.isSelected()) va+= 6;
+		if(selectedClass == ClassPG.WARRIOR && selectedClass.getJob().equals("Corporale"))
+			va +=  frenzy((String)pgEstasi.getSelectedItem());
 
 		if(va > 165) return new float[] { -1f,-1f };
 
@@ -807,6 +827,7 @@ public class TACG extends JFrame {
 				hps = 0.009f * va + 0.1f;
 				break;
 			case SPADA:
+			case SPADA_SURA:
 			case CAMPANA:
 				hps = 0.014f * va;
 				break;
@@ -840,6 +861,8 @@ public class TACG extends JFrame {
 
 		if(libriMaledizione.isSelected()) va += 5;
 		if(tavoleTugyi.isSelected()) va+= 6;
+		if(selectedClass == ClassPG.WARRIOR && selectedClass.getJob().equals("Corporale"))
+			va +=  frenzy((String)pgEstasi.getSelectedItem());
 
 		if(va > 165) return new float[] { -1f,-1f };
 
@@ -848,6 +871,7 @@ public class TACG extends JFrame {
 				hps = 0.0175f * va + 0.2f;
 				break;
 			case SPADA:
+			case SPADA_SURA:
 			case PUGNALE:
 				hps = 0.018f * va;
 				break;
@@ -873,6 +897,11 @@ public class TACG extends JFrame {
 
 	/** This is the method which updates all the result fields, recalculating them each time it's called. */
 	public void calculate() {
+		/* Check if weapon is compatible with classPG */
+		if(!selectedClass.canUse(selectedWeapon.getType())) {
+			setAllText("Arma invalida per la tua classe.");
+			return;
+		}
 		/* First, update weapon atk */
 		byte up = (byte)upWeapon.getSelectedItem();
 		try {
@@ -920,6 +949,7 @@ public class TACG extends JFrame {
 			resultsWeaAtk.setText(selectedWeapon.getAtk(up,0,0)+" - "+selectedWeapon.getAtk(up,0,1));
 		} catch(IllegalArgumentException e) {
 			setAllText("Parametro/i invalido/i: "+e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -960,6 +990,24 @@ public class TACG extends JFrame {
 		public String getName() { return name; }
 		public String getJob() { return job; }
 		public void setJob(String job) { this.job = job; }
+		public boolean canUse(Weapon.WeaponType wt) {
+			switch(wt) {
+				case SPADONE:
+					return name.equals("Guerriero");
+				case SPADA:
+					return !name.equals("Shamana");
+				case VENTAGLIO:
+				case CAMPANA:
+					return name.equals("Shamana");
+				case PUGNALE:
+				case ARCO:
+					return name.equals("Ninja");
+				case SPADA_SURA:
+					return name.equals("Sura");
+				default:
+					return false;
+			}
+		}
 	}
 
 	static void reportMsg(Throwable e) {

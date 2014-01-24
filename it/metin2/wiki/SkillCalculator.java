@@ -33,16 +33,16 @@ class SkillCalculator {
 	private static byte parseLevel(String sLevel) throws IllegalArgumentException {
 		try {
 			byte level = Byte.parseByte(sLevel);
-			if(level < 0 || level > 20) throw new IllegalArgumentException(sLevel);
+			if(level < 0 || level > 20) throw new IllegalArgumentException("Illegal skill level: "+sLevel);
 			else return level;
 
 		} catch(NumberFormatException e) {
 			char prefix = sLevel.toLowerCase().charAt(0);
 			if(prefix != 'm' && prefix != 'g' && prefix != 'p')
-				throw new IllegalArgumentException(Character.toString(prefix));
+				throw new IllegalArgumentException("Illegal level prefix: "+Character.toString(prefix));
 
 			if(prefix == 'p') {
-				if(sLevel.length() > 1) throw new IllegalArgumentException(sLevel);
+				if(sLevel.length() > 1) throw new IllegalArgumentException("Illegal skill level: "+sLevel);
 				else return 40;
 			}
 
@@ -51,9 +51,9 @@ class SkillCalculator {
 				byte suffix = Byte.parseByte(subLevel);
 				switch(prefix) {
 					case 'm':
-						return (byte)(20+suffix);
+						return (byte)(19+suffix);
 					case 'g':
-						return (byte)(30+suffix);
+						return (byte)(29+suffix);
 				}
 			} catch(NumberFormatException e2) {
 				throw new IllegalArgumentException(sLevel);
@@ -82,10 +82,10 @@ class SkillCalculator {
 		return (int)(5+(15+pgInt/5)*k[level]);
 	}
 
-	public static float frenzy(String sLevel) throws IllegalArgumentException {
+	public static int frenzy(String sLevel) throws IllegalArgumentException {
 		byte level = parseLevel(sLevel);
 		if(level < 1) return 0;
-		return (float)(((int)50*k[level])/2f);
+		return (int)(((int)50*k[level])/2f);
 	}
 
 	public static float fear(String sLevel) throws IllegalArgumentException {

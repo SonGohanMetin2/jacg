@@ -20,7 +20,7 @@ package it.metin2.wiki;
 
 class Weapon {
 
-	public static enum WeaponType { SPADONE,SPADA,PUGNALE,ARCO,VENTAGLIO,CAMPANA };
+	public static enum WeaponType { SPADONE,SPADA,SPADA_SURA,PUGNALE,ARCO,VENTAGLIO,CAMPANA };
 
 	private String name;
 	private short level;
@@ -76,6 +76,8 @@ class Weapon {
 				thisWea.type = WeaponType.SPADONE;
 			else if(token[42].toLowerCase().equals("spada"))
 				thisWea.type = WeaponType.SPADA;
+			else if(token[42].toLowerCase().equals("spada_sura"))
+				thisWea.type = WeaponType.SPADA_SURA;
 			else if(token[42].toLowerCase().equals("pugnale"))
 				thisWea.type = WeaponType.PUGNALE;
 			else if(token[42].toLowerCase().equals("arco"))
