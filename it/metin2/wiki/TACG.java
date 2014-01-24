@@ -32,7 +32,7 @@ import static it.metin2.wiki.SkillCalculator.*;
 public class TACG extends JFrame {
 
 	/* JFrame constants */
-	private final static String TITLE = "Theoretical Attack Calculus Gear by Son Gohan -- Alpha Release 1.0";
+	private final static String TITLE = "Theoretical Attack Calculus Gear by Son Gohan -- Release 1.1";
 	// actually the window size is decided by 'tacg.pack()': changing these value may not influence the real size.
 	private final static int DIM_X = 800;
 	private final static int DIM_Y = 650;
