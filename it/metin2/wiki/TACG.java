@@ -571,15 +571,18 @@ public class TACG extends JFrame {
 
 	public static void main(String[] args) {
 		if(args.length > 1) {
-			System.err.println("\n--- Java Attack Calculus Gear by Son Gohan ---");
-			System.err.println("\nUsage: java -jar jacg.jar [-d]\n");
-			System.exit(0);
+			printUsage();
+
 		} 
 
 		final TACG tacg = new TACG();
-		if(args.length > 0 && args[0].equals("-d")) {
-			System.err.println("[TACG] Debug level set to 1.");
-			tacg.debug = 1;
+		if(args.length > 0) {
+			if(args[0].equals("-d")) {
+				System.err.println("[TACG] Debug level set to 1.");
+				tacg.debug = 1;
+			} else {
+				printUsage();
+			}
 		}
 		tacg.setTitle(TITLE);
 		tacg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -591,6 +594,12 @@ public class TACG extends JFrame {
 				tacg.setVisible(true);
 			}
 		});
+	}
+
+	private static void printUsage() {
+		System.err.println("\n--- Java Attack Calculus Gear by Son Gohan ---");
+		System.err.println("\nUsage: java -jar jacg.jar [-d]\n");
+		System.exit(0);
 	}
 
 	class ClassPGListener implements ActionListener {
