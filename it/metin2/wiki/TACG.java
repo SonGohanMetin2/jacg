@@ -612,6 +612,9 @@ public class TACG extends JFrame {
 			jobPG.removeAllItems();
 			for(int i = 0; i < 2; ++i)
 				jobPG.addItem(jobs[Arrays.asList(classes).indexOf(className)][i]);
+			
+			pgAura.setSelectedItem("0");
+			pgEstasi.setSelectedItem("0");
 
 			/* update selectedClass and aura/estasi labels */
 			if(className.equals("Guerriero")) {
@@ -650,18 +653,29 @@ public class TACG extends JFrame {
 			String jobName = (String)((JComboBox)e.getSource()).getSelectedItem();
 			selectedClass.setJob(jobName);
 
+			pgAura.setSelectedItem("0");
+			pgEstasi.setSelectedItem("0");
+
 			if(jobName.equals("Corporale")) {
 				aura.setText("Livello Aura");
 				estasi.setText("Livello Estasi");
+				pgAura.setEnabled(true);
+				pgEstasi.setEnabled(true);
 			} else if(jobName.equals("Armi Magiche")) {
 				aura.setText("Livello Lama");
 				estasi.setText("---");
+				pgAura.setEnabled(true);
+				pgEstasi.setEnabled(false);
 			} else if(jobName.equals("Guarigione")) {
 				aura.setText("Livello Attacco+");
 				estasi.setText("---");
+				pgAura.setEnabled(true);
+				pgEstasi.setEnabled(false);
 			} else {
 				aura.setText("---");
 				estasi.setText("---");
+				pgAura.setEnabled(false);
+				pgEstasi.setEnabled(false);
 			}
 
 			calculate();
