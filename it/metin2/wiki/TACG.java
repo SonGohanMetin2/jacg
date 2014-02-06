@@ -572,7 +572,6 @@ public class TACG extends JFrame {
 	public static void main(String[] args) {
 		if(args.length > 1) {
 			printUsage();
-
 		} 
 
 		final TACG tacg = new TACG();
@@ -584,11 +583,11 @@ public class TACG extends JFrame {
 				printUsage();
 			}
 		}
-		tacg.setTitle(TITLE);
-		tacg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		System.out.println("Launching Java Attack Calculus Gear...");
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				tacg.setTitle(TITLE);
+				tacg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				tacg.setSize(DIM_X,DIM_Y);
 				tacg.pack();
 				tacg.setVisible(true);
