@@ -35,13 +35,13 @@ where:
 * ATK_MIN, ATK_MAX, ATK_SPEED and ATK_GROWTH consist of 10 columns with the values at each up;
 * ATK_GROWTH at up X is defined as ATK_MAX(up=X) - ATK_MIN(up=X);
 * TYPE is one of these:
-** SPADONE (2-handed sword)
-** SPADA (1-handed sword)
-** SPADA_SURA (1-handed sword only for SURA)
-** PUGNALE (dagger)
-** ARCO (bow)
-** CAMPANA (bell)
-** VENTAGLIO (fan)
+* SPADONE (2-handed sword)
+* SPADA (1-handed sword)
+* SPADA_SURA (1-handed sword only for SURA)
+* PUGNALE (dagger)
+* ARCO (bow)
+* CAMPANA (bell)
+* VENTAGLIO (fan)
 
 You can put whole-line comments beginning the line with "#":
 * # this is a valid comment
