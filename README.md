@@ -53,7 +53,7 @@ Report bugs to son.gohan.mt2@gmail.com
 
 Copying 
 ---------
-You can clone this repository and edit the code (e.g. translate the tool), provided that you release your edited code with the same license as this (GNU GPL v3). Please refer to COPYING in the main directory.
+You can clone this repository and edit the code (e.g. translate the tool), provided that you release your edited code with the same license as this (GNU GPL v3). Please refer to LICENSE in the main directory and to COPYING in the tool directory.
 
 Disclaimer
 ------------
