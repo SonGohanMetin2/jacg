@@ -44,9 +44,7 @@ where:
 7) VENTAGLIO (fan)
 
 You can put whole-line comments beginning the line with "#":
-
 # this is a valid comment
-
 [...] 3 10 34 # this is NOT a valid comment: "#" must begin the line!
 
 Bugs
