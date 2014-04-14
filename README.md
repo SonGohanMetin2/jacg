@@ -7,6 +7,10 @@ The Java Attack Calculus Gear is the latest-generation tool for Attack and Damag
 It was created by Son Gohan in 2013 and exploits a bunch of game formulas discovered by Son Gohan, Mystikal
 (former wiki.metin2.it staff) and some other Italian Metin2 players, particularly AlbyElite.
 
+NOTE: ATM, the tool is in Italian only. If you'd like the tool to be translated in English, please
+ask me (son.gohan.mt2@gmail.com) and I'll see what I can do.
+
+
 Installing
 ----------------
 You just need to have Java SE7 or later; the JAR file is the standalone package containing the tool and
