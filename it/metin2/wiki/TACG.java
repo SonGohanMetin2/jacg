@@ -732,7 +732,7 @@ public class TACG extends JFrame {
 		}
 	}
 
-	/* Calculate effective atk with 1st Mystikal-Gohan law */
+	/* Calculate effective atk with 2nd Mystikal-Gohan law */
 	private int[] mgEffAtk() throws IllegalArgumentException {
 		int lv = Integer.parseInt(pgLiv.getText());
 		int dex = Integer.parseInt(pgDex.getText());
@@ -805,7 +805,7 @@ public class TACG extends JFrame {
 				};
 	}
 
-	/** @return { bonusII vs Mobs, bonusI vs PGs } */
+	/** @return { bonusII vs Mobs, bonusII vs PGs } */
 	private float[] bonusII() throws IllegalArgumentException {
 		return new float[] {	1f	// no bonusII vs mobs: just buffs on enemy PG
 					,
@@ -816,7 +816,7 @@ public class TACG extends JFrame {
 				};
 	}
 
-	/** @return { bonusIII vs Mobs, bonusI vs PGs } */
+	/** @return { bonusIII vs Mobs, bonusIII vs PGs } */
 	private float[] bonusIII() throws IllegalArgumentException {
 		return new float[] {	(float)(1 + (Integer.parseInt(danniMedi.getText()))/100f)
 					, 
