@@ -85,7 +85,7 @@ class SkillCalculator {
 	public static int frenzy(String sLevel) throws IllegalArgumentException {
 		byte level = parseLevel(sLevel);
 		if(level < 1) return 0;
-		return (int)(((int)50*k[level])/2f);
+		return (int)((int)50*k[level]);
 	}
 
 	public static float fear(String sLevel) throws IllegalArgumentException {
